@@ -13,17 +13,21 @@ type Question struct {
 	ans      int
 }
 
+var score int = 0
+var total int
+
 func main() {
 	fmt.Print("set timer:")
 	var limit int
 	fmt.Scanln(&limit)
 	go quiz()
 	time.Sleep(time.Duration(limit) * time.Second)
+	fmt.Printf("\nTime limit ended, your score is %v/%v", score, total)
 
 }
 func quiz() {
 	myMap := make(map[int]Question)
-	var score int = 0
+
 	content, err := os.ReadFile("./text")
 	if err != nil {
 		fmt.Print(err)
@@ -42,16 +46,17 @@ func quiz() {
 		}
 		myMap[index] = Question{question: question, ans: ansNum}
 	}
+	total = len(myMap)
 	for _, ques := range myMap {
-		fmt.Printf("Question : %v:\n", ques.question)
+		fmt.Printf("Problem: %v=", ques.question)
 		var answer int
 		fmt.Scanln(&answer)
 
 		if answer == ques.ans {
 			score += 1
-			fmt.Printf("correct\n score:%v/%v", score, len(myMap))
+			fmt.Printf("correct\n")
 		} else {
-			fmt.Printf("incorrect\n score:%v/%v", score, len(myMap))
+			fmt.Printf("incorrect\n")
 		}
 	}
 }
