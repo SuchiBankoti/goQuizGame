@@ -5,6 +5,7 @@ import (
 	"os"
 	"strconv"
 	"strings"
+	"time"
 )
 
 type Question struct {
@@ -13,6 +14,14 @@ type Question struct {
 }
 
 func main() {
+	fmt.Print("set timer:")
+	var limit int
+	fmt.Scanln(&limit)
+	go quiz()
+	time.Sleep(time.Duration(limit) * time.Second)
+
+}
+func quiz() {
 	myMap := make(map[int]Question)
 	var score int = 0
 	content, err := os.ReadFile("./text")
@@ -45,5 +54,4 @@ func main() {
 			fmt.Printf("incorrect\n score:%v/%v", score, len(myMap))
 		}
 	}
-
 }
