@@ -26,6 +26,16 @@ func main() {
 		ans := temp[1]
 		myMap[index] = Question{question: question, ans: ans}
 	}
-	fmt.Print(myMap)
+	for _, ques := range myMap {
+		fmt.Printf("Question : %v:\n", ques.question)
+		var answer string
+		fmt.Scanln(&answer)
+
+		if answer == ques.ans {
+			fmt.Print("correct\n")
+		} else {
+			fmt.Print("incorrect\n")
+		}
+	}
 
 }
